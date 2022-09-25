@@ -1,7 +1,11 @@
 import { Routes, Route } from "react-router-dom";
+import MusicPlayer from "./components/MusicPlayer";
+import { useAppSelector } from "./hooks/hooks";
 import Discover from "./pages/Discover";
 
 function App() {
+  const { activeSong } = useAppSelector((state) => state.palyer);
+
   return (
     <div className="relative flex">
       <h1>sidebar</h1>
@@ -25,6 +29,12 @@ function App() {
           </div>
         </div>
       </div>
+      {activeSong?.title && (
+        <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
+          {/* <h1 className="text-8xl text-white">this is musi player...</h1> */}
+          <MusicPlayer />
+        </div>
+      )}
     </div>
   );
 }
