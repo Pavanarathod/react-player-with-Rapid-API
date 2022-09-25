@@ -1,6 +1,9 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+  song: string;
+  i: number;
+};
 
 const SongCard = (props: Props) => {
   return <div>SongCard</div>;

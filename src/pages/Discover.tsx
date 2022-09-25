@@ -1,8 +1,15 @@
 import { genres } from "../assets/constants";
+import Loader from "../components/Loader";
+import SongCard from "../components/SongCard";
+import { useGetTopchartsQuery } from "../redux/services/shazamCore";
 
 interface Props {}
 
 const Discover = (props: Props) => {
+  const { data, isLoading, error } = useGetTopchartsQuery();
+
+  if (isLoading) return <Loader />;
+
   return (
     <div className="flex flex-col">
       <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
@@ -24,8 +31,8 @@ const Discover = (props: Props) => {
 
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
         {/* fetch the from API */}
-        {[1, 2, 3, 4, 5, 6, 7, , 8, 9, 10].map((song) => (
-          <div key={song}>{song}</div>
+        {data?.map((song, index) => (
+          <SongCard key={index} song={"song"} i={index} />
         ))}
       </div>
     </div>
