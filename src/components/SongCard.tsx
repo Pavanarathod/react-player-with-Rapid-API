@@ -7,7 +7,7 @@ import PlayPause from "./PlayPause";
 interface Props {
   song: RootObject;
   isPlaying: boolean;
-  activeSong: any;
+  activeSong: RootObject | {};
   data: RootObject[];
   i: number;
 }
@@ -38,7 +38,7 @@ const SongCard = ({ song, i, activeSong, data, isPlaying }: Props) => {
               activeSong={activeSong}
               song={song}
               handlePlay={handlePaly}
-              handlePause={() => {}}
+              handlePause={handlePause}
             />
           </div>
         </div>

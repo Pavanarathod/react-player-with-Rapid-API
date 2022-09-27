@@ -6,7 +6,7 @@ import SongCard from "./SongCard";
 interface Props {
   song: RootObject;
   isPlaying: boolean;
-  activeSong: any;
+  activeSong: any; // THIS ACTIVE SONG IS TYPE OF RootObject
   handlePause: () => void;
   handlePlay: () => void;
 }

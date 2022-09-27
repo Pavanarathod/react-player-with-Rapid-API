@@ -1,7 +1,7 @@
 import loader from "../assets/loader.svg";
 
 type Props = {};
-console.log(loader);
+
 const Loader = (props: Props) => {
   return (
     <div className="w-full flex  justify-center items-center flex-col">

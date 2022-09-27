@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootObject } from "../../types/shazamTypes";
 
 interface InitialState {
-  currentSongs: [];
+  currentSongs: RootObject[];
   currentIndex: number;
   isActive: boolean;
   isPlaying: boolean;
-  activeSong: any;
+  activeSong: RootObject | {};
   genreListId: string;
 }
 
@@ -26,29 +26,33 @@ const playerSlice = createSlice({
   reducers: {
     setActiveSong(
       state,
-      action: PayloadAction<{ song: RootObject; data: any; i: number }>
+      action: PayloadAction<{ song: RootObject; data: RootObject[]; i: number }>
     ) {
       state.activeSong = action.payload.song;
-      if (action.payload?.data?.tracks?.hits) {
-        console.log("first condiaiton is running");
-        state.currentSongs = action.payload.data.tracks.hits;
-      } else if (action.payload?.data?.properties) {
-        console.log("second condition is running..");
-        state.currentSongs = action.payload?.data?.tracks;
-      } else {
-        state.currentSongs = action.payload.data;
-      }
-
+      state.currentSongs = action.payload.data;
       state.currentIndex = action.payload.i;
       state.isActive = true;
     },
 
-    playPause: (state, action) => {
+    nextSong(state, action: PayloadAction<number>) {
+      state.activeSong = state.currentSongs[action.payload];
+      state.currentIndex = action.payload;
+      state.isActive = true;
+    },
+
+    prevSong(state, action: PayloadAction<number>) {
+      state.activeSong = state.currentSongs[action.payload];
+      state.currentIndex = action.payload;
+      state.isActive = true;
+    },
+
+    playPause: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
     },
   },
 });
 
-export const { setActiveSong, playPause } = playerSlice.actions;
+export const { setActiveSong, playPause, nextSong, prevSong } =
+  playerSlice.actions;
 
 export default playerSlice;

@@ -29,6 +29,10 @@ const MusicPlayer = () => {
     if (currentSongs.length) dispatch(playPause(true));
   }, [currentIndex]);
 
+  const handleRepeat = () => {
+    setRepeat(!repeat);
+  };
+
   const handlePlayPause = () => {
     if (!isActive) return;
 
@@ -71,9 +75,9 @@ const MusicPlayer = () => {
           isPlaying={isPlaying}
           isActive={isActive}
           repeat={repeat}
-          setRepeat={setRepeat}
+          setRepeat={handleRepeat}
           shuffle={shuffle}
-          setShuffle={setShuffle}
+          setShuffle={() => setShuffle(!shuffle)}
           currentSongs={currentSongs}
           handlePlayPause={handlePlayPause}
           handlePrevSong={handlePrevSong}
@@ -93,7 +97,7 @@ const MusicPlayer = () => {
           isPlaying={isPlaying}
           seekTime={seekTime}
           repeat={repeat}
-          currentIndex={currentIndex}
+          // currentIndex={currentIndex}
           onEnded={handleNextSong}
           onTimeUpdate={(event) => setAppTime(event.target.currentTime)}
           onLoadedData={(event) => setDuration(event.target.duration)}

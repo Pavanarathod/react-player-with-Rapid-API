@@ -1,8 +1,29 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
+import { RootObject } from "../../types/shazamTypes";
 
-const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
-  const ref = useRef(null);
+interface PlayerProps {
+  activeSong: any;
+  isPlaying: boolean;
+  volume: any;
+  seekTime: number;
+  onEnded: () => void;
+  onTimeUpdate: (event: any) => void;
+  onLoadedData: (Event: any) => void;
+  repeat: boolean;
+}
+
+const Player = ({
+  activeSong,
+  isPlaying,
+  volume,
+  seekTime,
+  onEnded,
+  onTimeUpdate,
+  onLoadedData,
+  repeat,
+}: PlayerProps) => {
+  const ref = useRef<HTMLAudioElement>(null);
   // eslint-disable-next-line no-unused-expressions
   if (ref.current) {
     if (isPlaying) {
@@ -13,11 +34,15 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
   }
 
   useEffect(() => {
-    ref.current.volume = volume;
+    if (ref.current) {
+      ref.current.volume = volume;
+    }
   }, [volume]);
   // updates audio element only on seekTime change (and not on each rerender):
   useEffect(() => {
-    ref.current.currentTime = seekTime;
+    if (ref.current) {
+      ref.current.currentTime = seekTime;
+    }
   }, [seekTime]);
 
   return (
